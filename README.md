@@ -2,18 +2,6 @@
 
 React SPA for managing the crew of an orbital station. Built with React, React Router v6, TanStack Query, Firebase Authentication and Vite.
 
-## Run
-
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-npm run build
-```
-
-## Environment variables
-
-Create `.env.local` from `.env.example` and fill in the values from your Firebase project (Project settings → Your apps → Web app). `.env.local` is listed in `.gitignore`.
 
 | Variable | Description |
 |---|---|
@@ -24,7 +12,6 @@ Create `.env.local` from `.env.example` and fill in the values from your Firebas
 | `VITE_FIREBASE_MESSAGING_SENDER_ID` | Messaging sender ID |
 | `VITE_FIREBASE_APP_ID` | App ID |
 
-On Vercel add the same variables in Project Settings → Environment Variables and redeploy. Add the deployed domain to Firebase Authentication → Settings → Authorized domains.
 
 ## Routes
 
@@ -89,20 +76,5 @@ src/
   App.jsx      routes only
 ```
 
-UI components never call the API, Firebase or `localStorage` directly; they use hooks and services.
-
-## Deploy
-
-`vercel.json` and `public/_redirects` redirect all paths to `index.html`, so direct URLs and page refresh work on Vercel and Netlify.
-
-## Lab 7: Progressive Web App
-
-- `manifest.webmanifest` defines the standalone install experience and includes 192px and 512px icons.
-- The build generates a versioned `sw.js` precache manifest from Vite's actual JS/CSS bundles, the app shell, icons and offline page. Static assets use cache-first; navigations try the network first and return a previously visited page or `/offline.html` when offline.
-- A new service worker waits until the user selects **Update now**. Activation removes older versioned caches and takes control of open tabs.
-- The supplied API is simulated and its source dataset is stored in browser localStorage. A request-first wrapper saves list, roster and detail responses as local snapshots for up to seven days (maximum 50 entries) and falls back to them on failure. Firebase authentication traffic and user tokens are never written to service worker caches.
-- The app always shows online/offline status, has a dedicated retryable offline screen, and adapts to narrow screens down to 320px. Service worker script caching is disabled at the hosting layer so browsers can discover updates.
-
-Service workers require HTTPS in production (localhost is supported for development). Vercel and Netlify deploy the generated `dist` folder using the included SPA rewrites.
 
 
